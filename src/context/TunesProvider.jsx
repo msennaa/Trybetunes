@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import TunesContext from './TunesContext';
 
 export default function TunesProvider({ children }) {
+  const [inputUser, setInputUser] = useState('');
+
+  const store = {
+    inputUser,
+    setInputUser,
+  };
+
   return (
-    <TunesContext.Provider>
+    <TunesContext.Provider value={ store }>
       {children}
     </TunesContext.Provider>
   );
