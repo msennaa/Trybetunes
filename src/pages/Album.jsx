@@ -8,12 +8,19 @@ import SongsCard from '../components/SongsCard';
 export default function Album(props) {
   const [songs, setSongs] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [name, setName] = useState('');
+  const [albumName, setAlbumName] = useState('');
 
   const getSongs = async () => {
     setLoading(true);
     const { match } = props;
     const { id } = match.params;
-    setSongs(await getMusics(id));
+    const response = await getMusics(id);
+    const nome = response[0].artistName;
+    const album = response[0].collectionName;
+    setName(nome);
+    setAlbumName(album);
+    setSongs(response);
     setLoading(false);
   };
 
@@ -21,9 +28,9 @@ export default function Album(props) {
     getSongs();
   }, []);
 
+  console.log(songs);
+
   if (loading) return <Loading />;
-  const name = songs[0].artistName;
-  const albumName = songs[0].collectionName;
 
   return (
     <div>
@@ -33,9 +40,12 @@ export default function Album(props) {
       <div>
         {
           songs && (
-            songs.map((song, index) => (
+            songs.slice(1).map((song, index) => (
               <SongsCard
                 key={ index }
+                trackName={ song.trackName }
+                previewUrl={ song.previewUrl }
+                trackId={ song.trackId }
               />
             ))
           )
