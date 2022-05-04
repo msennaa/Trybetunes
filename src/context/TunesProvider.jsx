@@ -13,9 +13,9 @@ export default function TunesProvider({ children }) {
   const store = {
     inputUser,
     setInputUser,
-    setFavoriteMusics,
     favoriteMusics,
     sendFavoriteMusic,
+    setFavoriteMusics,
   };
 
   return (
