@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import '../css/AlbumCard.css';
 
 export default function AlbumCard(props) {
   const { artworkUrl100, collectionName, collectionId } = props;
   return (
-    <Link to={ `/album/${collectionId}` }>
+    <Link className="album-item" to={ `/album/${collectionId}` }>
       <img src={ artworkUrl100 } alt={ `Album ${collectionName}` } />
       <h3>{ collectionName }</h3>
     </Link>

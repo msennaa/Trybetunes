@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
 import Loading from './Loading';
 import SongsCard from '../components/SongsCard';
+import Header from '../components/Header';
+import '../css/Album.css';
 
 export default function Album(props) {
   const [songs, setSongs] = useState([]);
@@ -28,16 +29,15 @@ export default function Album(props) {
     getSongs();
   }, []);
 
-  console.log(songs);
-
   if (loading) return <Loading />;
 
   return (
     <div>
-      <Header />
-      <h1>{name}</h1>
-      <h3>{albumName}</h3>
-      <div>
+      <Header page="Album" />
+      <div className="album-title">
+        <h1>{`${name} - ${albumName}`}</h1>
+      </div>
+      <div className="song-container">
         {
           songs && (
             songs.slice(1).map((song, index) => (
@@ -46,6 +46,7 @@ export default function Album(props) {
                 trackName={ song.trackName }
                 previewUrl={ song.previewUrl }
                 trackId={ song.trackId }
+                artistName={ name }
               />
             ))
           )
